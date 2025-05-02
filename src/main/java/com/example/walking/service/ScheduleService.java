@@ -35,19 +35,6 @@ public class ScheduleService {
                 .collect(Collectors.toList());
     }
 
-    private ScheduleResponseDto toResponse(Schedule schedule, int commentCount, List<CommentResponseDto> comments) {
-        return ScheduleResponseDto.builder()
-                .id(schedule.getId())
-                .title(schedule.getTitle())
-                .content(schedule.getContent())
-                .writerId(schedule.getWriterId())
-                .createdAt(schedule.getCreatedAt())
-                .updatedAt(schedule.getUpdatedAt())
-                .commentCount(commentCount)
-                .comments(comments)
-                .build();
-    }
-
     // 일정 상세 조회
     public ScheduleResponseDto findById(Long id){
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new RuntimeException("일정이 없습니다."));
@@ -66,5 +53,18 @@ public class ScheduleService {
     // 일정 삭제
     public void delete(Long id){
         scheduleRepository.deleteById(id);
+    }
+
+    private ScheduleResponseDto toResponse(Schedule schedule, int commentCount, List<CommentResponseDto> comments) {
+        return ScheduleResponseDto.builder()
+                .id(schedule.getId())
+                .title(schedule.getTitle())
+                .content(schedule.getContent())
+                .writerId(schedule.getWriterId())
+                .createdAt(schedule.getCreatedAt())
+                .updatedAt(schedule.getUpdatedAt())
+                .commentCount(commentCount)
+                .comments(comments)
+                .build();
     }
 }
