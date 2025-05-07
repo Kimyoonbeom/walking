@@ -37,14 +37,14 @@ public class ScheduleService {
 
     // 일정 상세 조회
     public ScheduleResponseDto findById(Long id){
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new RuntimeException("일정이 없습니다."));
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new RuntimeException("일정이 존재하지 않습니다."));
         return toResponse(schedule, commentRepository.countByScheduleId(id).intValue(), null);
     }
 
     // 일정 수정
     public ScheduleResponseDto update(Long id, ScheduleRequestDto dto) {
         Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("일정 없음"));
+                .orElseThrow(() -> new RuntimeException("일정이 존재하지 않습니다."));
         schedule.update(dto.getTitle(), dto.getContent());
         Schedule updated = scheduleRepository.save(schedule);
         return toResponse(updated, commentRepository.countByScheduleId(id).intValue(), null);
