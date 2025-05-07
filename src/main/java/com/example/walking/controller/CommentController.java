@@ -38,7 +38,7 @@ public class CommentController {
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").ascending());
-        return commentService.findCommentsBySchedule(scheduleId, pageable);
+        return commentService.findTopCommentsBySchedule(scheduleId, pageable);
     }
 
     // 단일 댓글 조회

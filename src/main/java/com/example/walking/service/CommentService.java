@@ -40,11 +40,11 @@ public class CommentService {
         Comment saved = commentRepository.save(comment);
         return toResponse(saved, new ArrayList<>());
     }
-    //댓글 목록 조회(페이징)
-    public Page<CommentResponseDto> findCommentsBySchedule(Long scheduleId, Pageable pageable){
-        Page<Comment> rootComments = commentRepository.findByScheduleIdAndParentComment(scheduleId, pageable);
+    // 최상위 댓글(부모가 없는 댓글) 페이징 조회
+    public Page<CommentResponseDto> findTopCommentsBySchedule(Long scheduleId, Pageable pageable) {
+        Page<Comment> rootComments = commentRepository.findByScheduleIdAndParentCommentIsNull(scheduleId, pageable);
         List<CommentResponseDto> content = new ArrayList<>();
-        for(Comment comment : rootComments.getContent()){
+        for (Comment comment : rootComments.getContent()) {
             content.add(toResponse(comment, buildChildren(comment)));
         }
         return new PageImpl<>(content, pageable, rootComments.getTotalElements());

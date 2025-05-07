@@ -11,6 +11,9 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Long countByScheduleId(Long scheduleId);
 
-    // 페이징
-    Page<Comment> findByScheduleIdAndParentComment(Long scheduleId, Pageable pageable);
+    // 최상위 댓글(부모가 null) 페이징 조회
+    Page<Comment> findByScheduleIdAndParentCommentIsNull(Long scheduleId, Pageable pageable);
+
+    // 특정 부모 댓글의 대댓글(자식 댓글) 페이징 조회
+    Page<Comment> findByParentCommentId(Long parentCommentId, Pageable pageable);
 }
