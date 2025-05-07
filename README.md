@@ -37,3 +37,10 @@
 ## 댓글
 ![image](https://github.com/user-attachments/assets/7459766d-4b0d-44a8-8a7a-1f11655977fa)
 
+---
+
+# Postman 작성(링크)
+
+https://documenter.getpostman.com/view/43244231/2sB2j7dV4P
+
+---
